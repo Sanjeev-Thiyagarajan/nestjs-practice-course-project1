@@ -1,5 +1,5 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
-import { Product } from './product.model';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { Product, ProductCategory } from './product.model';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -16,8 +16,20 @@ export class ProductsController {
   }
 
   @Post()
-  createProduct() {
-    return 'created a brand new product';
+  createProduct(
+    @Body('name') name: string,
+    @Body('description') description: string,
+    @Body('price') price: number,
+    @Body('category') category: ProductCategory,
+  ): Product {
+    // const { name, description, price, category } = body;
+
+    return this.productsService.createProduct(
+      name,
+      description,
+      price,
+      category,
+    );
   }
 
   @Patch('/:id')

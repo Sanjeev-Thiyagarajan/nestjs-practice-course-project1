@@ -1,11 +1,12 @@
 export interface Product {
+  id: number;
   name: string;
   description: string;
   price: number;
   category: ProductCategory;
 }
 
-enum ProductCategory {
+export enum ProductCategory {
   ELECTRONICS = 'ELECTRONICS',
   FOOD = 'FOOD',
   VEHICLES = 'VEHICLES',

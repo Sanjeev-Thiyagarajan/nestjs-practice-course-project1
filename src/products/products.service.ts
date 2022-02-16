@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { Product } from './product.model';
 
 @Injectable()
 export class ProductsService {
-  private products = [];
+  private products: Product[] = [];
 
-  getAllProducts() {
+  getAllProducts(): Product[] {
     return this.products;
   }
 }

@@ -10,4 +10,5 @@ export enum ProductCategory {
   ELECTRONICS = 'ELECTRONICS',
   FOOD = 'FOOD',
   VEHICLES = 'VEHICLES',
+  UNCLASSIFIED = 'UNCLASSIFIED',
 }

@@ -11,7 +11,7 @@ export class ProductsController {
 
   @Get('/:id')
   getOneProduct() {
-    return 'getting one products';
+    return 'getting one product';
   }
 
   @Post()

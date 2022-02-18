@@ -36,9 +36,7 @@ export class ProductsController {
   }
 
   @Post()
-  createProduct(
-    @Body(new ValidationPipe()) createProductDto: CreateProductDto,
-  ): Product {
+  createProduct(@Body() createProductDto: CreateProductDto): Product {
     // const { name, description, price, category } = body;
 
     return this.productsService.createProduct(createProductDto);

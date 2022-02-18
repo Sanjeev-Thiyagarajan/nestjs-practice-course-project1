@@ -1,5 +1,14 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 import { Product, ProductCategory } from './product.model';
 import { ProductsService } from './products.service';
 
@@ -12,8 +21,9 @@ export class ProductsController {
   }
 
   @Get('/:id')
-  getOneProduct() {
-    return 'getting one product';
+  getOneProduct(@Param('id') id: string) {
+    //params always come as strings need to convert to int
+    return this.productsService.getOneProduct(parseInt(id));
   }
 
   @Post()
@@ -23,13 +33,17 @@ export class ProductsController {
     return this.productsService.createProduct(createProductDto);
   }
 
-  @Patch('/:id')
-  updateProduct() {
-    return 'updated a product';
+  @Delete('/:id')
+  deleteProduct(@Param('id') id: string): void {
+    this.productsService.deleteProduct(parseInt(id));
+    return;
   }
 
-  @Delete('/:id')
-  deleteProduct() {
-    return 'deleting product....';
+  @Patch('/:id')
+  updateProduct(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
+    return this.productsService.updateProduct(parseInt(id), updateProductDto);
   }
 }

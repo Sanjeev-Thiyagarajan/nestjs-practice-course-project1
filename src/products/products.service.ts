@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
+import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product, ProductCategory } from './product.model';
 
@@ -9,6 +10,33 @@ export class ProductsService {
 
   getAllProducts(): Product[] {
     return this.products;
+  }
+
+  getFilteredProducts(filterDto: GetProductsFilterDto): Product[] {
+    const { category, search } = filterDto;
+
+    let filteredProducts = this.getAllProducts();
+
+    if (category) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === category,
+      );
+    }
+
+    if (search) {
+      filteredProducts = filteredProducts.filter((product) => {
+        if (
+          product.name.toLocaleLowerCase().includes(search.toLowerCase()) ||
+          product.description.toLocaleLowerCase().includes(search.toLowerCase())
+        ) {
+          return true;
+        }
+
+        return false;
+      });
+    }
+
+    return filteredProducts;
   }
 
   getOneProduct(id: number): Product {
